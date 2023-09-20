@@ -3,7 +3,7 @@ from pytube import Playlist
 from pytube.exceptions import PytubeError
 
 # Specify the URL of the YouTube playlist
-playlist_url = "https://www.youtube.com/playlist?list=PLtPJ9lKvJ4oiNMvYbOzCmWy6cRzYAh9B1"
+playlist_url = "https://www.youtube.com/watch?v=nV7cI5zgOpk&list=PLA0M1Bcd0w8yv0XGiF1wjerjSZVSrYbjh&pp=iAQB"
 
 # Create a Playlist object
 playlist = Playlist(playlist_url)
