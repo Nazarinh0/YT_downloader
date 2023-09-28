@@ -1,9 +1,10 @@
 import os
 from pytube import Playlist
 from pytube.exceptions import PytubeError
+from tqdm import tqdm
 
 # Specify the URL of the YouTube playlist
-playlist_url = "https://www.youtube.com/watch?v=nV7cI5zgOpk&list=PLA0M1Bcd0w8yv0XGiF1wjerjSZVSrYbjh&pp=iAQB"
+playlist_url = "https://www.youtube.com/playlist?list=PLuhp4lHyeGyJ88MpWHbJJewswLrUyLW5o"
 
 # Create a Playlist object
 playlist = Playlist(playlist_url)
@@ -21,7 +22,7 @@ def download_with_retry(stream, output_path, retry_attempts=3):
     for attempt in range(retry_attempts):
         try:
             print(f"Downloading: {video.title}")
-            stream.download(output_path=output_path)
+            stream.download(output_path=output_path, on_progress_callback=on_progress)
             print("Download successful!")
             return True
         except Exception as e:
@@ -30,12 +31,22 @@ def download_with_retry(stream, output_path, retry_attempts=3):
     print("Download failed after all retry attempts.")
     return False
 
+# Function to update the progress bar
+def on_progress(stream, chunk, bytes_remaining):
+    total_size = stream.filesize
+    bytes_downloaded = total_size - bytes_remaining
+    progress = bytes_downloaded / total_size * 100
+    pbar.update(progress - pbar.n)
+
 # Download each video with retry
 for video in playlist.videos:
     # Get the highest resolution stream
     highest_resolution_stream = video.streams.get_highest_resolution()
     
     if highest_resolution_stream:
+        # Initialize the progress bar
+        pbar = tqdm(total=100, desc=f"Downloading {video.title}", unit="%", unit_scale=True)
         download_with_retry(highest_resolution_stream, output_dir)
+        pbar.close()
 
 print("All downloads complete!")
