@@ -3,10 +3,12 @@ from pytube import Playlist
 from moviepy.editor import AudioFileClip
 import re
 import unicodedata
-    
-    
+
+
 # Specify the URL of the YouTube playlist
-playlist_url = "https://www.youtube.com/playlist?list=PL3GQVNZapamNVePI8sxa1vE_XonO2bQ1n"
+playlist_url = (
+    "https://www.youtube.com/playlist?list=PL3GQVNZapamNVePI8sxa1vE_XonO2bQ1n"
+)
 
 # Create a Playlist object
 playlist = Playlist(playlist_url)
@@ -23,19 +25,21 @@ if not os.path.exists(output_dir):
 for video in playlist.videos:
     # Get the audio stream
     audio_stream = video.streams.filter(only_audio=True).first()
-    
+
     if audio_stream:
         print(f"Downloading audio: {video.title}")
         filename = f"{video.title.replace(' ', '_').lower()}.mp4"
         audio_path = os.path.join(output_dir, filename)
         audio_stream.download(output_path=output_dir, filename=filename)
-        
+
         # Convert the audio to MP3 using moviepy
         audio_clip = AudioFileClip(audio_path)
         filename = video.title
         audio_mp3_path = os.path.join(output_dir, f"{filename}.mp3")
-        audio_clip.write_audiofile(audio_mp3_path, codec='mp3', ffmpeg_params=["-ac", "2"])
-        
+        audio_clip.write_audiofile(
+            audio_mp3_path, codec="mp3", ffmpeg_params=["-ac", "2"]
+        )
+
         # Clean up the temporary webm file
         audio_clip.close()
         os.remove(audio_path)
