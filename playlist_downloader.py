@@ -5,7 +5,7 @@ from tqdm import tqdm
 
 # Specify the URL of the YouTube playlist
 playlist_url = (
-    "https://www.youtube.com/playlist?list=PLuhp4lHyeGyJ88MpWHbJJewswLrUyLW5o"
+    "https://www.youtube.com/playlist?list=PLbCKwl6gVEfBcHaMFhA_rLzlZ9aS4uIir"
 )
 
 # Create a Playlist object
@@ -25,7 +25,8 @@ def download_with_retry(stream, output_path, retry_attempts=3):
     for attempt in range(retry_attempts):
         try:
             print(f"Downloading: {video.title}")
-            stream.download(output_path=output_path, on_progress_callback=on_progress)
+            # stream.download(output_path=output_path, on_progress_callback=on_progress)
+            stream.download(output_path=output_path)
             print("Download successful!")
             return True
         except Exception as e:
