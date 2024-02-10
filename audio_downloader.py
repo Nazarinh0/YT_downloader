@@ -30,12 +30,17 @@ for video in playlist.videos:
         print(f"Downloading audio: {video.title}")
         filename = f"{video.title.replace(' ', '_').lower()}.mp4"
         audio_path = os.path.join(output_dir, filename)
+        audio_mp3_path = os.path.join(output_dir, f"{video.title}.mp3")
+        
+        #SKIP ALREADY EXISTING IF NEEDED - MAINLY FOR PLAYLIST UPDATE
+        if os.path.exists(audio_mp3_path):
+            print(f"Audio already exists: {video.title}")
+            continue
+
         audio_stream.download(output_path=output_dir, filename=filename)
 
         # Convert the audio to MP3 using moviepy
         audio_clip = AudioFileClip(audio_path)
-        filename = video.title
-        audio_mp3_path = os.path.join(output_dir, f"{filename}.mp3")
         audio_clip.write_audiofile(
             audio_mp3_path, codec="mp3", ffmpeg_params=["-ac", "2"]
         )
