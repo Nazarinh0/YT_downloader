@@ -7,7 +7,7 @@ import unicodedata
 
 # Specify the URL of the YouTube playlist
 playlist_url = (
-    "https://www.youtube.com/playlist?list=PLbCKwl6gVEfBcHaMFhA_rLzlZ9aS4uIir"
+    "https://youtube.com/playlist?list=PLbCKwl6gVEfBcHaMFhA_rLzlZ9aS4uIir&si=ilrOiwRL6SBPDuTC"
 )
 
 # Create a Playlist object
