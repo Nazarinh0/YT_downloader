@@ -7,15 +7,14 @@ import unicodedata
 
 # Specify the URL of the YouTube playlist
 playlist_url = (
-    "https://youtube.com/playlist?list=PLbCKwl6gVEfBcHaMFhA_rLzlZ9aS4uIir&si=ilrOiwRL6SBPDuTC"
+    "https://www.youtube.com/playlist?list=PLbCKwl6gVEfBcHaMFhA_rLzlZ9aS4uIir"
+    
 )
 
-# Create a Playlist object
 playlist = Playlist(playlist_url)
 playlist_name = playlist.title
 playlist_name = playlist_name.replace(" ", "_").lower()
 
-# Specify the directory where you want to save the audio files
 output_dir = os.path.join("audio", playlist_name)
 
 if not os.path.exists(output_dir):
@@ -23,7 +22,6 @@ if not os.path.exists(output_dir):
 
 # Download each video's audio and convert to MP3
 for video in playlist.videos:
-    # Get the audio stream
     audio_stream = video.streams.filter(only_audio=True).first()
 
     if audio_stream:
