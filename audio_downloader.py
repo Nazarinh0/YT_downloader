@@ -21,6 +21,7 @@ if not os.path.exists(output_dir):
     os.makedirs(output_dir)
 
 # Download each video's audio and convert to MP3
+print(len(playlist.videos))
 for video in playlist.videos:
     audio_stream = video.streams.filter(only_audio=True).first()
 
