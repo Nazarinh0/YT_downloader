@@ -11,6 +11,7 @@ python = "^3.11"
 pytube = "^15.0.0"
 python-dotenv = "^1.0.0"
 moviepy = "^1.0.3"
+youtube-dl = "^2021.12.17"
 
 
 [tool.poetry.group.dev.dependencies]
